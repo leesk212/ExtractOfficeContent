@@ -79,7 +79,13 @@ class ExtractExcel:
             df_datas = []
             for name in sheet_names:
                 data = pd.read_excel(tmp_save_path, index_col=None, sheet_name=name)
+                data = data.fillna('') #My
+                data = data[2:] #My
+                if data.shape[0] > threshold:
+                    data = data[:threshold]
+
                 cvt_data = self.convert_table(data, out_format)
+
                 df_datas.append(cvt_data)
         return df_datas
 
